@@ -2,3 +2,4 @@
 /.vscode
 *.js
 *.map
+npm-debug.log.*
