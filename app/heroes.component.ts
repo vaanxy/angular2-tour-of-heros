@@ -7,22 +7,7 @@ import { HeroService } from './hero.service'
 
 @Component({
     selector: 'my-heroes',
-    template: `
-        <h2>我的英雄们</h2>
-        <ul class="heroes">
-            <li *ngFor="let hero of heroes" 
-            [class.selected]="hero === selectedHero"
-            (click)="onSelect(hero)">
-                <span class="badge">{{hero.id}}</span> {{hero.name}}
-            </li>
-        </ul>
-        <div *ngIf="selectedHero">
-        <h2>
-            {{selectedHero.name | uppercase}} 是我的英雄
-        </h2>
-        <button (click)="gotoDetail()">察看英雄详情</button>
-        </div>
-        `,
+    templateUrl: '/app/heroes.component.html',
     styleUrls: [ 'app/heroes.component.css' ]
 })
 export class HeroesComponent implements OnInit {
@@ -51,4 +36,23 @@ export class HeroesComponent implements OnInit {
     gotoDetail(): void {
         this.router.navigate(['/detail', this.selectedHero.id]);
     }
+    add(name: string): void {
+        name = name.trim();
+        if (!name) { return; }
+        this.heroService.create(name)
+        .then(hero => {
+            this.heroes.push(hero);
+            this.selectedHero = null;
+        });
+    }
+
+    delete(hero: Hero): void {
+    this.heroService
+        .delete(hero.id)
+        .then(() => {
+        this.heroes = this.heroes.filter(h => h !== hero);
+        if (this.selectedHero === hero) { this.selectedHero = null; }
+     });
+}
+
 };
