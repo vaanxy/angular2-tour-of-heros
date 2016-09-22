@@ -1,6 +1,10 @@
 import {Component}        from '@angular/core';
+import { OnInit }         from '@angular/core';
+
 import {CoursesComponent} from './courses.component'
 import { Hero }           from './hero';
+import { HeroService }    from './hero.service';
+
 
 @Component({
     selector: 'my-app',
@@ -62,28 +66,32 @@ import { Hero }           from './hero';
             margin-right: .8em;
             border-radius: 4px 0 0 4px;
         }
-        `]
+        `],
+        providers: [ HeroService ]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+
+    constructor(private heroService: HeroService) { }
+
+    ngOnInit(): void {
+        this.getHeroes();
+    }
+
+
+
     title = '英雄编辑器';
     selectedHero: Hero;
-    heroes = HEROES;
+    heroes: Hero[];
+    
 
     onSelect(hero: Hero): void {
         this.selectedHero = hero;
     };
-}
 
-const HEROES: Hero[] = [
-  { id: 1,  name: '暴风城的勇士'},
-  { id: 11, name: 'Mr. 赖斯' },
-  { id: 12, name: '漩涡鸣人' },
-  { id: 13, name: '本巴斯多' },
-  { id: 14, name: '女武神 赛勒瑞塔斯' },
-  { id: 15, name: 'Magneta' },
-  { id: 16, name: '橡皮人-路飞' },
-  { id: 17, name: 'Dynama' },
-  { id: 18, name: 'Dr. 脑残' },
-  { id: 19, name: 'Magma' },
-  { id: 20, name: '龙卷风' }
-];
+    getHeroes(): void {
+        // this.heroService.getHeroes()
+        //     .then(heroes => this.heroes = heroes);
+        this.heroService.getHeroesSlowly()
+            .then(heroes => this.heroes = heroes);;
+    }
+};
