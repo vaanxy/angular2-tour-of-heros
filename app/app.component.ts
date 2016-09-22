@@ -1,5 +1,7 @@
-import {Component} from '@angular/core';
+import {Component}        from '@angular/core';
 import {CoursesComponent} from './courses.component'
+import { Hero }           from './hero';
+
 @Component({
     selector: 'my-app',
     template: `<h1>{{title}}</h1>
@@ -11,15 +13,7 @@ import {CoursesComponent} from './courses.component'
                         <span class="badge">{{hero.id}}</span> {{hero.name}}
                     </li>
                 </ul>
-                <div *ngIf="selectedHero">
-                    <h2>{{selectedHero.name}} 详情!</h2>
-                    <div>
-                        <label>id: </label>{{selectedHero.id}}
-                    </div>
-                    <div>
-                        <input [(ngModel)]="selectedHero.name" placeholder="给你的英雄起个名字吧！">
-                    </div>
-                </div>`,
+                <my-hero-detail [hero]="selectedHero"></my-hero-detail>`,
     styles: [`
         .selected {
             background-color: #CFD8DC !important;
@@ -80,21 +74,16 @@ export class AppComponent {
     };
 }
 
-export class Hero {
-    id: number;
-    name: string;
-}
-
 const HEROES: Hero[] = [
   { id: 1,  name: '暴风城的勇士'},
   { id: 11, name: 'Mr. 赖斯' },
   { id: 12, name: '漩涡鸣人' },
-  { id: 13, name: 'Bombasto' },
-  { id: 14, name: 'Celeritas' },
+  { id: 13, name: '本巴斯多' },
+  { id: 14, name: '女武神 赛勒瑞塔斯' },
   { id: 15, name: 'Magneta' },
-  { id: 16, name: 'RubberMan' },
+  { id: 16, name: '橡皮人-路飞' },
   { id: 17, name: 'Dynama' },
-  { id: 18, name: 'Dr 脑残' },
+  { id: 18, name: 'Dr. 脑残' },
   { id: 19, name: 'Magma' },
   { id: 20, name: '龙卷风' }
 ];
