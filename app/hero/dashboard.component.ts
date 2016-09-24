@@ -6,8 +6,8 @@ import { HeroService } from './hero.service';
 
 @Component({
   selector:    'my-dashboard',
-  templateUrl: 'app/dashboard.component.html',
-  styleUrls: [ 'app/dashboard.component.css' ]
+  templateUrl: 'app/hero/dashboard.component.html',
+  styleUrls: [ 'app/hero/dashboard.component.css' ]
 })
 export class DashboardComponent { 
     heroes: Hero[] = [];
@@ -20,7 +20,7 @@ export class DashboardComponent {
     }
 
     gotoDetail(hero: Hero): void {
-        let link = ['/detail', hero.id];
+        let link = ['/hero', hero.id];
         this.router.navigate(link);
     }
 }

@@ -1,14 +1,14 @@
-import { Component, OnInit }        from '@angular/core';
-import { Router }         from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router }            from '@angular/router';
 
 
-import { Hero }           from './hero';
-import { HeroService } from './hero.service'
+import { Hero }              from './hero';
+import { HeroService }       from './hero.service'
 
 @Component({
     selector: 'my-heroes',
-    templateUrl: '/app/heroes.component.html',
-    styleUrls: [ 'app/heroes.component.css' ]
+    templateUrl: 'app/hero/heroes.component.html',
+    styleUrls: [ 'app/hero/heroes.component.css' ]
 })
 export class HeroesComponent implements OnInit {
 
@@ -34,7 +34,7 @@ export class HeroesComponent implements OnInit {
             .then(heroes => this.heroes = heroes);;
     }
     gotoDetail(): void {
-        this.router.navigate(['/detail', this.selectedHero.id]);
+        this.router.navigate(['/hero', this.selectedHero.id]);
     }
     add(name: string): void {
         name = name.trim();
@@ -47,12 +47,12 @@ export class HeroesComponent implements OnInit {
     }
 
     delete(hero: Hero): void {
-    this.heroService
-        .delete(hero.id)
-        .then(() => {
-        this.heroes = this.heroes.filter(h => h !== hero);
-        if (this.selectedHero === hero) { this.selectedHero = null; }
-     });
-}
+        this.heroService
+            .delete(hero.id)
+            .then(() => {
+            this.heroes = this.heroes.filter(h => h !== hero);
+            if (this.selectedHero === hero) { this.selectedHero = null; }
+        });
+    }
 
 };

@@ -1,0 +1,18 @@
+<h2>{{userName}} 的联系人</h2>
+<div *ngIf="msg" class="msg">{{msg}}</div>
+<form *ngIf="contacts" (ngSubmit)="onSubmit()" #contactForm="ngForm">
+  <h3 highlight>{{ contact.name | awesome }}</h3>
+  <div class="form-group">
+    <label for="name">姓名</label>
+    <input type="text" class="form-control" required
+      [(ngModel)]="contact.name"
+        name="name"  #name="ngModel" >
+    <div [hidden]="name.valid" class="alert alert-danger">
+      姓名必填
+    </div>
+  </div>
+  <br>
+  <button type="submit" class="btn btn-default" [disabled]="!contactForm.form.valid">保存</button>
+  <button type="button" class="btn" (click)="next()" [disabled]="!contactForm.form.valid">下一个联系人</button>
+  <button type="button" class="btn" (click)="newContact()">新建联系人</button>
+</form>

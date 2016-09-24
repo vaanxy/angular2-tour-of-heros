@@ -1,42 +1,39 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule }   from '@angular/forms';
 import { HttpModule }    from '@angular/http';
+
+
+import { routing } from './app.routing';
+import { AppComponent} from './app.component';
 
 // Imports for loading & configuring the in-memory web api
 import { InMemoryWebApiModule } from 'angular2-in-memory-web-api';
 import { InMemoryDataService }  from './in-memory-data.service';
-
-import { routing } from './app.routing';
-
-import { AppComponent} from './app.component';
-import { HeroesComponent } from './heroes.component';
-import { HeroDetailComponent } from './hero-detail.component';
-import { DashboardComponent } from './dashboard.component';
-import { HeroSearchComponent } from './hero-search.component'
-
-import { HeroService } from './hero.service';
-
-import './rxjs-extensions';
+// core module
+import { CoreModule }     from './core/core.module';
+// shared module
+import { SharedModule }   from './shared/shared.module';
+// contact module
+import { ContactModule }  from './contact/contact.module';
+// hero codule
+import { HeroModule }     from './hero/hero.module';
 
 
 @NgModule({
     imports: [ 
         BrowserModule, 
-        FormsModule, 
         HttpModule,
         InMemoryWebApiModule.forRoot(InMemoryDataService),
-        routing 
+        SharedModule,
+        CoreModule.forRoot({userName: 'Mr. 花'}),
+        HeroModule,
+        ContactModule,
+        routing
     ],
     declarations: [ 
-        AppComponent, 
-        HeroesComponent, 
-        HeroDetailComponent, 
-        DashboardComponent,
-        HeroSearchComponent
+        AppComponent
     ],
     bootstrap: [ AppComponent ],
-    providers: [ HeroService ]
 })
 export class AppModule {
 

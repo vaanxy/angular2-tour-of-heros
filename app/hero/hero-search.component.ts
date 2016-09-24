@@ -7,8 +7,8 @@ import { Hero }              from './hero';
 
 @Component({
     selector: 'hero-search',
-    templateUrl: 'app/hero-search.component.html',
-    styleUrls:  [ 'app/hero-search.component.css' ],
+    templateUrl: 'app/hero/hero-search.component.html',
+    styleUrls:  [ 'app/hero/hero-search.component.css' ],
     providers: [ HeroSearchService ]
 })
 export class HeroSearchComponent implements OnInit {
@@ -38,7 +38,7 @@ export class HeroSearchComponent implements OnInit {
         });
     }
     gotoDetail(hero: Hero): void {
-        let link = ['/detail', hero.id];
+        let link = ['/hero', hero.id];
         this.router.navigate(link);
     }
 }

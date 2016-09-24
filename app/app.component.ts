@@ -3,15 +3,16 @@ import { Component } from '@angular/core';
 @Component({
     selector: 'my-app',
     template: `
-        <h1>{{title}}</h1>
+        <app-title [subtitle]="subtitle"></app-title>
         <nav>
-            <a routerLink="/dashboard" routerLinkActive="active">仪表盘</a>
-            <a routerLink="/heroes" routerLinkActive="active">英雄列表</a>
+            <a routerLink="/hero/dashboard" routerLinkActive="active">仪表盘</a>
+            <a routerLink="/hero/all" routerLinkActive="active">英雄列表</a>
+            <a routerLink="/contact" routerLinkActive="active">英雄通讯录</a>
         </nav>
         <router-outlet></router-outlet>
         `,
     styleUrls: [ 'app/app.component.css' ]
 })
 export class AppComponent {
-    title: string = '英雄编辑器';
+    subtitle: string = '(v4)';
 }
