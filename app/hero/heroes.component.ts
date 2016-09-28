@@ -1,4 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { 
+    Component,
+    OnInit,    
+    trigger,
+    state,
+    style,
+    transition,
+    animate
+ } from '@angular/core';
 import { Router }            from '@angular/router';
 
 
@@ -8,7 +16,19 @@ import { HeroService }       from './hero.service'
 @Component({
     selector: 'my-heroes',
     templateUrl: 'app/hero/heroes.component.html',
-    styleUrls: [ 'app/hero/heroes.component.css' ]
+    styleUrls: [ 'app/hero/heroes.component.css' ],
+    animations: [
+        trigger('flyInOut', [
+            // state('in', style({transform: 'translateX(0)'})),
+            transition('void => *', [
+                style({opacity: 0, transform: 'translateX(-100%)'}),
+                animate('0.2s 0 ease-out')
+            ]),
+            transition('* => void', [
+                animate('0.2s 0 ease-in', style({opacity: 1, transform: 'translateX(-100%)'}))
+            ])
+        ])
+    ]
 })
 export class HeroesComponent implements OnInit {
 

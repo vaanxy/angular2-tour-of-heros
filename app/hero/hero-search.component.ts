@@ -1,4 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { 
+    Component,
+    OnInit,
+    trigger,
+    state,
+    style,
+    transition,
+    animate
+ } from '@angular/core';
 import { Router }            from '@angular/router';
 import { Observable }        from 'rxjs/Observable';
 import { Subject }           from 'rxjs/Subject';
@@ -9,9 +17,35 @@ import { Hero }              from './hero';
     selector: 'hero-search',
     templateUrl: 'app/hero/hero-search.component.html',
     styleUrls:  [ 'app/hero/hero-search.component.css' ],
+    animations: [
+        trigger(
+            'expand',
+            [
+                state('focused', style({width: '50%', backgroundColor: 'white'})),
+                state('blured', style({width: '*', backgroundColor: '*'})),
+                transition(
+                    'focused <=> blured', [animate(200)]
+                )
+            ]
+        ),
+        trigger('flyInOut', [
+            // state('in', style({transform: 'translateX(0)'})),
+            transition('void => *', [
+                style({opacity: 0, transform: 'translateX(-100%)'}),
+                animate('0.2s 0 ease-out')
+            ]),
+            transition('* => void', [
+                animate('0.2s 0 ease-in', style({opacity: 1, transform: 'translateX(-100%)'}))
+            ])
+        ])
+
+    ],
     providers: [ HeroSearchService ]
 })
 export class HeroSearchComponent implements OnInit {
+    focusState: string = 'blured';
+    focus(): void { this.focusState = 'focused' }
+    blur(): void { this.focusState = 'blured' }
     heroes: Observable<Hero[]>;
     private searchTerms = new Subject<string>();
     constructor(

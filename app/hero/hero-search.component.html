@@ -1,9 +1,15 @@
 <div id="search-component">
   <h4>搜索英雄</h4>
-  <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
+  <input #searchBox id="search-box" 
+        (keyup)="search(searchBox.value)"
+        (focus)="focus()"
+        (blur)="blur()"
+        [@expand]="focusState" />
   <div>
     <div *ngFor="let hero of heroes | async"
-         (click)="gotoDetail(hero)" class="search-result" >
+         (click)="gotoDetail(hero)" class="search-result"
+         [@expand]="focusState"
+         [@flyInOut] >
       {{hero.name}}
     </div>
   </div>
